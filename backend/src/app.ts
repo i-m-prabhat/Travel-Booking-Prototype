@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import errorHandler from "middlewares/error.middleware";
 
 const app = express();
 
@@ -9,7 +10,7 @@ app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.static("public"));
 
 //routes import 
-// import userRouter from './routes/user.routes.js'
+import routes from "./routes";
 
 //routes declaration
 app.get("/", (req: any, res: any) =>
@@ -20,7 +21,19 @@ app.get("/", (req: any, res: any) =>
     });
 });
 
-// app.use("/api/v1/users", userRouter)
+app.use("/api/v1", routes);
+
+
+// Handle unknown routes
+app.use((req, res) =>
+{
+    res.status(404).json({
+        success: false,
+        message: `Route ${req.originalUrl} not found`,
+    });
+});
+
+app.use(errorHandler);
 
 
 export { app };
