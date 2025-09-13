@@ -14,12 +14,9 @@ import { adminMiddleware } from "../middlewares/admin.middleware";
 
 const router = Router();
 
-// Admin-only routes
 router.post("/", authMiddleware, adminMiddleware, createTripValidator, validateRequest, createTrip);
 router.put("/:id", authMiddleware, adminMiddleware, updateTrip);
 router.delete("/:id", authMiddleware, adminMiddleware, deleteTrip);
-
-// Public routes
 router.get("/", getTrips);
 router.get("/:id", getTripById);
 

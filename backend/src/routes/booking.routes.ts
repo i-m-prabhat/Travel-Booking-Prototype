@@ -1,8 +1,22 @@
-import { Router } from 'express';
-
+import { Router } from "express";
+import
+{
+    createBooking,
+    cancelBooking,
+    getMyBookings,
+    getAllBookings,
+} from "../controllers/booking.controller";
+import { createBookingValidator } from "../validators/booking.validators";
+import { validateRequest } from "../middlewares/validate.middleware";
+import { authMiddleware } from "../middlewares/auth.middleware";
+import { adminMiddleware } from "../middlewares/admin.middleware";
 
 const router = Router();
 
-// router.route('/').get();
+router.post("/", authMiddleware, createBookingValidator, validateRequest, createBooking);
+router.delete("/:id", authMiddleware, cancelBooking);
+router.get("/me", authMiddleware, getMyBookings);
 
-export default router
+router.get("/", authMiddleware, adminMiddleware, getAllBookings);
+
+export default router;
