@@ -86,10 +86,7 @@ const ToastNotification: React.FC<ToastNotificationProps> = ({
                 animation: "slideIn 0.3s ease-out",
             }}
         >
-            {/* Icon */}
             <div style={{ marginTop: "2px" }}>{getIcon()}</div>
-
-            {/* Content */}
             <div style={{ flex: 1 }}>
                 <h6
                     style={{
@@ -113,8 +110,6 @@ const ToastNotification: React.FC<ToastNotificationProps> = ({
                     {message}
                 </p>
             </div>
-
-            {/* Close Button */}
             <button
                 onClick={() => onClose(id)}
                 style={{

@@ -1,11 +1,10 @@
 import axiosInstance from "./axiosInstance";
-import type { LoginRequest, LoginResponse, RegisterRequest, User } from "../types/auth";
+import type { LoginRequest, RegisterRequest, User } from "../types/auth";
 
 // Login
 export const login = async (payload: LoginRequest): Promise<any> =>
 {
     const { data } = await axiosInstance.post<any>("/auth/login", payload);
-    console.log(data);
     if (data.data.accessToken)
     {
         localStorage.setItem("token", data.data.accessToken);
@@ -32,5 +31,6 @@ export const getProfile = async (): Promise<User> =>
 export const logout = async (): Promise<void> =>
 {
     await axiosInstance.post("/auth/logout");
+    localStorage.removeItem("token");
     localStorage.removeItem("user-data");
 };

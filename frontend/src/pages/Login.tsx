@@ -11,6 +11,7 @@ import
 import { Eye, EyeSlash, Envelope } from "react-bootstrap-icons";
 import { login } from "../api/auth";
 import { useToast } from "../hooks/useToast";
+import { Link, useNavigate } from "react-router-dom";
 
 type LoginFormInputs = {
     email: string;
@@ -20,7 +21,7 @@ type LoginFormInputs = {
 const Login = () =>
 {
     const toast = useToast();
-
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
 
     const {
@@ -33,9 +34,9 @@ const Login = () =>
     {
         try
         {
-            const res = await login(data);
-            console.log("Login successful:", res);
-            // redirect to dashboard/home
+            await login(data);
+            // navigate("/");
+            window.location.href = "/";
             toast.success("Success", "Login successful.");
         } catch (error)
         {
@@ -57,7 +58,6 @@ const Login = () =>
                 }}
             >
                 <Card.Body className="p-4">
-                    {/* Icon + Title */}
                     <div className="text-center mb-4">
                         <div
                             style={{
@@ -81,9 +81,7 @@ const Login = () =>
                         </p>
                     </div>
 
-                    {/* Form */}
                     <Form onSubmit={handleSubmit(onSubmit)}>
-                        {/* Email */}
                         <Form.Group className="mb-3" controlId="formEmail">
                             <Form.Label>Email</Form.Label>
                             <InputGroup>
@@ -108,7 +106,6 @@ const Login = () =>
                             </InputGroup>
                         </Form.Group>
 
-                        {/* Password */}
                         <Form.Group className="mb-3" controlId="formPassword">
                             <Form.Label>Password</Form.Label>
                             <InputGroup>
@@ -135,8 +132,6 @@ const Login = () =>
                                 </Form.Control.Feedback>
                             </InputGroup>
                         </Form.Group>
-
-                        {/* Forgot password */}
                         <div className="d-flex justify-content-end mb-3">
                             <a
                                 href="#"
@@ -146,8 +141,6 @@ const Login = () =>
                                 Forgot password?
                             </a>
                         </div>
-
-                        {/* Submit Button */}
                         <Button
                             type="submit"
                             variant="primary"
@@ -157,13 +150,11 @@ const Login = () =>
                         >
                             {isSubmitting ? "Logging in..." : "Log In"}
                         </Button>
-
-                        {/* Signup link */}
                         <p className="text-center mt-3 mb-0" style={{ fontSize: "0.9rem" }}>
                             Don’t have an account?{" "}
-                            <a href="/signup" className="text-primary fw-semibold">
+                            <Link to="/register" className="text-primary fw-semibold">
                                 Sign Up
-                            </a>
+                            </Link>
                         </p>
                     </Form>
                 </Card.Body>

@@ -2,25 +2,39 @@ import './App.css'
 import { indexRouter } from './router';
 import { createBrowserRouter } from 'react-router-dom';
 import { RouterProvider } from 'react-router';
-import { Login } from './pages';
+import { Login, Register } from './pages';
+import LoginLayout from './layouts/LoginLayout';
+import { AuthProvider } from './contexts/AuthContext';
+import Error from './pages/Error';
 
 
 
 const router = createBrowserRouter([
   {
     path: "/login",
-    element: <Login />,
+    element: <LoginLayout />,
+    children: [
+      { index: true, element: <Login /> },
+    ],
   },
-  ...indexRouter
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  ...indexRouter,
+  {
+    path: "*",
+    element: <Error />
+  }
 ], { basename: import.meta.env.VITE_PUBLIC_URL || '/' });
 
 
 function App()
 {
   return (
-    <>
+    <AuthProvider>
       <RouterProvider router={router}></RouterProvider>
-    </>
+    </AuthProvider>
   )
 }
 
