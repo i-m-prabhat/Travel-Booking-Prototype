@@ -2,9 +2,10 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IUser extends Document
 {
+    _id: any,
     name: string;
     email: string;
-    password: string; // hashed
+    password: string;
     role: "user" | "admin";
     profilePicture?: string;
     mobileNumber?: string;

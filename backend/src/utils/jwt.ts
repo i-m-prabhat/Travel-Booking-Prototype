@@ -1,7 +1,8 @@
 import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
+import { AuthPayload } from "types/auth";
 
 export const signToken = (
-    payload: object,
+    payload: AuthPayload,
     expiresIn: string | number = "1d"
 ): string =>
 {
@@ -12,7 +13,7 @@ export const signToken = (
     );
 };
 
-export const verifyToken = (token: string): string | JwtPayload =>
+export const verifyToken = (token: string): AuthPayload =>
 {
-    return jwt.verify(token, process.env.JWT_SECRET as string);
+    return jwt.verify(token, process.env.JWT_SECRET as string) as AuthPayload;
 };

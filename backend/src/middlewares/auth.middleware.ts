@@ -1,18 +1,20 @@
-import { Request, Response, NextFunction } from "express";
+import { Response, NextFunction } from "express";
 import { verifyToken } from "../utils/jwt";
+import { ApiError } from "../utils/ApiError";
+import { RequestWithUser } from "../types/requestWithUser";
 
-export const authMiddleware = (req: Request, res: Response, next: NextFunction) =>
+export const authMiddleware = (req: RequestWithUser, res: Response, next: NextFunction) =>
 {
     const token = req.headers.authorization?.split(" ")[1];
-    if (!token) return res.status(401).json({ message: "Unauthorized" });
+    if (!token) throw new ApiError(401, "Unauthorized");
 
     try
     {
         const decoded = verifyToken(token);
         req.user = decoded;
         next();
-    } catch (err)
+    } catch (error)
     {
-        return res.status(401).json({ message: "Invalid Token" });
+        throw new ApiError(401, "Invalid or expired token");
     }
 };

@@ -2,58 +2,51 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import { User } from "../models/User";
 import { signToken } from "../utils/jwt";
+import { asyncHandler } from "utils/asyncHandler";
+import { ApiError } from "utils/ApiError";
+import { ApiResponse } from "utils/ApiResponse";
 
-export const register = async (req: Request, res: Response) =>
+export const register = asyncHandler(async (req: Request, res: Response) =>
 {
-    try
-    {
-        const { name, email, password } = req.body;
+    const { name, email, password } = req.body;
 
-        const existingUser = await User.findOne({ email });
-        if (existingUser)
-        {
-            return res.status(400).json({ message: "User already exists" });
-        }
+    const existingUser = await User.findOne({ email });
+    if (existingUser) throw new ApiError(400, "User already exists");
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-        const user = await User.create({
-            name,
-            email,
-            password: hashedPassword,
-        });
+    const user = await User.create({
+        name,
+        email,
+        password: hashedPassword,
+    });
 
-        res.status(201).json({
-            message: "User registered successfully",
-            user: { id: user._id, name: user.name, email: user.email },
-        });
-    } catch (error)
-    {
-        res.status(500).json({ message: "Registration failed", error });
-    }
-};
+    return res
+        .status(201)
+        .json(new ApiResponse(
+            201,
+            { id: user._id, name: user.name, email: user.email },
+            "User registered successfully"
+        ));
+});
 
-export const login = async (req: Request, res: Response) =>
+export const login = asyncHandler(async (req: Request, res: Response) =>
 {
-    try
-    {
-        const { email, password } = req.body;
+    const { email, password } = req.body;
 
-        const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ message: "Invalid credentials" });
+    const user = await User.findOne({ email });
+    if (!user) throw new ApiError(400, "Invalid credentials");
 
-        const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) throw new ApiError(400, "Invalid credentials");
 
-        const token = signToken({ id: user._id, email: user.email, role: user.role });
+    const token = signToken({ id: user._id.toString(), email: user.email, role: user.role });
 
-        res.json({
-            message: "Login successful",
-            token,
-            user: { id: user._id, name: user.name, email: user.email, role: user.role },
-        });
-    } catch (error)
-    {
-        res.status(500).json({ message: "Login failed", error });
-    }
-};
+    return res
+        .status(200)
+        .json(new ApiResponse(
+            200,
+            { accessToken: token, user: { id: user._id, name: user.name, email: user.email, role: user.role } },
+            "Login successful"
+        ));
+});

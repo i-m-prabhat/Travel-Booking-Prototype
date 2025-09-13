@@ -1,4 +1,4 @@
-import { JwtPayload } from "jsonwebtoken";
+import { AuthPayload } from "./auth";
 
 declare global
 {
@@ -6,7 +6,7 @@ declare global
     {
         export interface Request
         {
-            user?: string | JwtPayload;   // decoded JWT payload
+            user?: AuthPayload;
         }
     }
 }

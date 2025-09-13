@@ -1,16 +1,15 @@
 {
     "compilerOptions": {
+        "types": [
+            "node",
+            "express"
+        ],
         "target": "ES2022",
         "module": "CommonJS",
         "moduleResolution": "Node",
         "rootDir": "src",
         "outDir": "dist",
         "baseUrl": "./src",
-        "paths": {
-            "*": [
-                "*"
-            ]
-        },
         "strict": true,
         "esModuleInterop": true,
         "skipLibCheck": true,
