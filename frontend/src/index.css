@@ -499,3 +499,86 @@ body {
 .tripx-book-btn:hover {
   background-color: #1d4ed8;
 }
+
+.ticket-card img {
+  max-width: 120px;
+  border-radius: 8px;
+}
+
+.ticket-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background-color: white;
+}
+
+.ticket-time {
+  background: #f8f9fa;
+  padding: 24px;
+  width: 160px;
+  text-align: center;
+}
+
+.ticket-time h3,
+.ticket-time h4 {
+  margin: 0;
+}
+
+.ticket-plane-icon {
+  background: url("https://img.icons8.com/ios-filled/50/000000/airplane-take-off.png") no-repeat center;
+  background-size: 24px;
+  height: 40px;
+}
+
+.ticket-middle {
+  background-color: #e1ecff;
+  flex-grow: 1;
+  border-right: 1px solid #dee2e6;
+}
+
+.ticket-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.ticket-info {
+  width: 25%;
+}
+
+.ticket-info .icon {
+  font-size: 18px;
+  color: #447eff;
+  margin-bottom: 4px;
+}
+
+.ticket-info .label {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+.ticket-info .value {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.ticket-footer {
+  border-top: 1px dashed #ccc;
+  padding-top: 12px;
+}
+
+.barcode-img {
+  height: 40px;
+}
+
+.ticket-map {
+  background-color: #ffffff;
+  padding: 12px;
+  min-width: 220px;
+}
+
+.ticket-map .map-img {
+  width: 100%;
+  max-width: 200px;
+}

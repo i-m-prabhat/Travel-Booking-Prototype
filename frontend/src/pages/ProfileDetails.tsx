@@ -5,7 +5,6 @@ const ProfileDetails = () =>
 {
     return (
         <Container className="mt-5">
-            {/* Profile Picture */}
             <div className="text-center mb-4">
                 <div className="profile-pic-wrapper position-relative d-inline-block">
                     <img
@@ -21,7 +20,6 @@ const ProfileDetails = () =>
                 <p className="text-muted mb-4">alex.johnson@email.com</p>
             </div>
 
-            {/* Account Details */}
             <Card className="account-card p-4">
                 <h6 className="fw-semibold mb-4">Account</h6>
 

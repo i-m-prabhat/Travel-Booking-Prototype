@@ -37,8 +37,7 @@ const trips = [
         date: "Dec 20, 2024",
         price: 129,
         image: "/images/miami.jpg"
-    },
-    // duplicate or reverse trips for display
+    }
 ];
 
 const Home = () =>

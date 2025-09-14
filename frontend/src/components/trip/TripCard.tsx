@@ -1,7 +1,9 @@
 import { FaStar, FaClock, FaUsers, FaCalendarAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 const TripCard = ({ trip }: any) =>
 {
+    const navigate = useNavigate();
     return (
         <div className="tripx-card">
             <div
@@ -30,7 +32,7 @@ const TripCard = ({ trip }: any) =>
                             <span className="tripx-original-price">${trip.originalPrice}</span>
                         )}
                     </div>
-                    <button className="tripx-book-btn">Book Now</button>
+                    <button className="tripx-book-btn" onClick={() => navigate("/bookings/:id")}>Book Now</button>
                 </div>
             </div>
         </div>

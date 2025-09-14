@@ -6,7 +6,6 @@ import { ApiError } from "../utils/ApiError";
 import { ApiResponse } from "../utils/ApiResponse";
 import { RequestWithUser } from "../types/requestWithUser";
 
-// User: Initiate Payment
 export const initiatePayment = asyncHandler(async (req: RequestWithUser, res: Response) =>
 {
     const { bookingId, method } = req.body;
@@ -29,7 +28,6 @@ export const initiatePayment = asyncHandler(async (req: RequestWithUser, res: Re
         .json(new ApiResponse(201, payment, "Payment initiated"));
 });
 
-// User: Verify Payment (mock)
 export const verifyPayment = asyncHandler(async (req: RequestWithUser, res: Response) =>
 {
     const { paymentId, success, transactionId } = req.body;
@@ -41,7 +39,6 @@ export const verifyPayment = asyncHandler(async (req: RequestWithUser, res: Resp
     if (transactionId) payment.transactionId = transactionId;
     await payment.save();
 
-    // update booking if payment completed
     if (success)
     {
         await Booking.findByIdAndUpdate(payment.booking, { status: "confirmed" });
@@ -52,7 +49,6 @@ export const verifyPayment = asyncHandler(async (req: RequestWithUser, res: Resp
         .json(new ApiResponse(200, payment, "Payment verified successfully"));
 });
 
-// Admin: Get All Payments
 export const getAllPayments = asyncHandler(async (req: RequestWithUser, res: Response) =>
 {
     const payments = await Payment.find().populate("booking");

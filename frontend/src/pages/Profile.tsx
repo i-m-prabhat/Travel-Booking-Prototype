@@ -120,7 +120,6 @@ const Profile = () =>
 {
     return (
         <div className="container mt-4">
-            {/* Profile Section */}
             <Card className="profile-card mb-4 py-3 border rounded-3">
                 <Card.Body className="d-flex align-items-center">
                     <FaUserCircle size={50} className="me-3 text-secondary" />
@@ -134,8 +133,6 @@ const Profile = () =>
                     </div>
                 </Card.Body>
             </Card>
-
-            {/* Upcoming Bookings */}
             <h5 className="fw-semibold mb-3">Upcoming Bookings</h5>
             <Row className="mb-4">
                 {upcomingBookings.map((booking) => (
@@ -144,8 +141,6 @@ const Profile = () =>
                     </Col>
                 ))}
             </Row>
-
-            {/* Past Bookings */}
             <h5 className="fw-semibold mb-3">Past Bookings</h5>
             <Row>
                 {pastBookings.map((booking) => (

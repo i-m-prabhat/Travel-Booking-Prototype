@@ -17,7 +17,7 @@ interface ToastNotificationProps
     message: string;
     onClose: (id: string) => void;
     icon?: React.ReactNode;
-    duration?: number; // auto close after ms
+    duration?: number;
 }
 
 const ToastNotification: React.FC<ToastNotificationProps> = ({
@@ -35,11 +35,11 @@ const ToastNotification: React.FC<ToastNotificationProps> = ({
         switch (type)
         {
             case "success":
-                return "#178D17"; // green
+                return "#178D17";
             case "error":
-                return "#D7263D"; // red
+                return "#D7263D";
             default:
-                return "#2563EB"; // blue fallback
+                return "#2563EB";
         }
     };
 
@@ -57,7 +57,6 @@ const ToastNotification: React.FC<ToastNotificationProps> = ({
         }
     };
 
-    // Auto hide after duration
     useEffect(() =>
     {
         const timer = setTimeout(() =>

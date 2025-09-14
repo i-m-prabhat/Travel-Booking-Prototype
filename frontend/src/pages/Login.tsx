@@ -35,7 +35,6 @@ const Login = () =>
         try
         {
             await login(data);
-            // navigate("/");
             window.location.href = "/";
             toast.success("Success", "Login successful.");
         } catch (error)

@@ -1,5 +1,5 @@
 import AppLayout from "../layouts/AppLayout";
-import { Admin, Home, MyBooking, Profile, ProfileDetails } from "../pages";
+import { Admin, BookingDetails, ConfirmPayment, Home, MyBooking, PaymentPage, Profile, ProfileDetails, TicketDetails } from "../pages";
 
 export const indexRouter = [
     {
@@ -13,6 +13,22 @@ export const indexRouter = [
             {
                 path: "bookings",
                 element: <MyBooking />,
+            },
+            {
+                path: "bookings/:id",
+                element: <BookingDetails />,
+            },
+            {
+                path: "payment/:id",
+                element: <PaymentPage />,
+            },
+            {
+                path: "verify-payment/:id",
+                element: <ConfirmPayment />,
+            },
+            {
+                path: "ticket/:id",
+                element: <TicketDetails />,
             },
             {
                 path: "profile",

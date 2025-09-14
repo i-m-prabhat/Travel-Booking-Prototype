@@ -33,7 +33,7 @@ axiosInstance.interceptors.response.use(
         if (error.response?.status === 401)
         {
             console.warn("Unauthorized. Redirect to login?");
-            // e.g., window.location.href = "/login";
+            window.location.href = "/login";
         }
         return Promise.reject(error);
     }

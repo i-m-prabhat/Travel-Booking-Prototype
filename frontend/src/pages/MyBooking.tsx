@@ -119,7 +119,6 @@ const MyBooking = () =>
     return (
         <div className="container mt-4">
 
-            {/* Upcoming Bookings */}
             <h5 className="fw-semibold mb-3">Upcoming Bookings</h5>
             <Row className="mb-4">
                 {upcomingBookings.map((booking) => (
@@ -129,7 +128,6 @@ const MyBooking = () =>
                 ))}
             </Row>
 
-            {/* Past Bookings */}
             <h5 className="fw-semibold mb-3">Past Bookings</h5>
             <Row>
                 {pastBookings.map((booking) => (
