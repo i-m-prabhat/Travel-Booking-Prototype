@@ -1,10 +1,49 @@
-import React from 'react';
+import moment from 'moment';
+import React, { useRef } from 'react';
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 import { Container, Row, Col, Card, Button } from 'react-bootstrap';
 import { FaMapMarkerAlt, FaCalendarAlt, FaClock, FaDoorOpen, FaChair } from 'react-icons/fa';
 import { MdEventSeat } from 'react-icons/md';
+import { useLocation, useParams } from 'react-router-dom';
+import { useToast } from '../hooks/useToast';
 
 const TicketDetails: React.FC = () =>
 {
+    const ticketRef = useRef<HTMLDivElement>(null);
+    const { id } = useParams();
+    const { state } = useLocation();
+    const { bookingDetails } = state || { bookingDetails: null };
+    const toast = useToast();
+
+    const handleDownload = async () =>
+    {
+        if (!ticketRef.current) return;
+        const canvas = await html2canvas(ticketRef.current, { scale: 2 });
+        const imgData = canvas.toDataURL('image/png');
+
+        const pdf = new jsPDF("p", "mm", "a4");
+        const imgWidth = 210;
+        const pageHeight = 297;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+        heightLeft -= pageHeight;
+
+        while (heightLeft > 0)
+        {
+            position = heightLeft - imgHeight;
+            pdf.addPage();
+            pdf.addImage(imgData, "PNG", 0, position, imgWidth, imgHeight);
+            heightLeft -= pageHeight;
+        }
+
+        pdf.save("boarding-pass.pdf");
+        toast.success("Success", "Ticket downloaded successfully");
+    };
     return (
         <Container className="my-5">
             <div className="ticket-container my-5">
@@ -17,17 +56,17 @@ const TicketDetails: React.FC = () =>
                         </p>
                     </Col>
                     <Col md={4} className="text-end">
-                        <h4 className="fw-bold text-success">$96</h4>
-                        <Button variant="primary">Download</Button>
+                        <h4 className="fw-bold text-success">${bookingDetails?.tripDetails?.price}</h4>
+                        <Button variant="primary" onClick={handleDownload}>Download</Button>
                     </Col>
                 </Row>
-                <div className="ticket-card d-flex flex-column flex-md-row">
+                <div className="ticket-card d-flex flex-column flex-md-row" ref={ticketRef}>
                     <div className="ticket-time">
-                        <h3 className="fw-bold">9:30 Am</h3>
-                        <p className="text-muted small">New York</p>
+                        <h3 className="fw-bold">{moment(bookingDetails?.tripDetails?.departureTime, 'HH:mm').format('hh:mm A')}</h3>
+                        <p className="text-muted small">{bookingDetails?.tripDetails?.from}</p>
                         <div className="ticket-plane-icon my-3" />
-                        <h4 className="fw-bold">12:00 pm</h4>
-                        <p className="text-muted small">Boston</p>
+                        <h4 className="fw-bold">{moment(bookingDetails?.tripDetails?.arrivalTime, 'HH:mm').format('hh:mm A')}</h4>
+                        <p className="text-muted small">{bookingDetails?.tripDetails?.to}</p>
                     </div>
                     <div className="ticket-middle px-4 py-3">
                         <div className="ticket-header d-flex justify-content-between align-items-center">
@@ -38,7 +77,7 @@ const TicketDetails: React.FC = () =>
                                     className="ticket-avatar me-3"
                                 />
                                 <div>
-                                    <div className="fw-bold">James Doe</div>
+                                    <div className="fw-bold">{bookingDetails?.userDetails?.name}</div>
                                     <div className="small text-muted">Boarding Pass N’123</div>
                                 </div>
                             </div>
@@ -49,12 +88,12 @@ const TicketDetails: React.FC = () =>
                             <div className="ticket-info">
                                 <FaCalendarAlt className="icon" />
                                 <div className="label">Date</div>
-                                <div className="value">26 Oct 2024</div>
+                                <div className="value">{new Date(bookingDetails?.tripDetails?.date).toLocaleDateString()}</div>
                             </div>
                             <div className="ticket-info">
                                 <FaClock className="icon" />
                                 <div className="label">Flight time</div>
-                                <div className="value">12:00</div>
+                                <div className="value">{moment(bookingDetails?.tripDetails?.departureTime, 'HH:mm').format('hh:mm A')}</div>
                             </div>
                             <div className="ticket-info">
                                 <FaDoorOpen className="icon" />

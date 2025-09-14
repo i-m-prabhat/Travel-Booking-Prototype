@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 const Header = () =>
 {
+    const { user, logout } = useAuth();
     const [showProfileMenu, setShowProfileMenu] = useState(false);
     const [showMobileMenu, setShowMobileMenu] = useState(false);
 
@@ -15,7 +17,9 @@ const Header = () =>
                 </NavLink>
                 <NavLink to="/bookings">My Bookings</NavLink>
                 <NavLink to="/profile">Profile</NavLink>
-                <NavLink to="/admin">Admin</NavLink>
+                {user?.role === 'admin' &&
+                    <NavLink to="/admin">Admin</NavLink>
+                }
             </nav>
 
             <div
@@ -34,7 +38,7 @@ const Header = () =>
                 />
                 {showProfileMenu && (
                     <div className="profile-menu">
-                        <button className="logout-btn">Logout</button>
+                        <button className="logout-btn" onClick={logout}>Logout</button>
                     </div>
                 )}
             </div>
@@ -58,9 +62,11 @@ const Header = () =>
                 <NavLink to="/profile" onClick={() => setShowMobileMenu(false)}>
                     Profile
                 </NavLink>
-                <NavLink to="/admin" onClick={() => setShowMobileMenu(false)}>
-                    Admin
-                </NavLink>
+                {user?.role === 'admin' &&
+                    <NavLink to="/admin" onClick={() => setShowMobileMenu(false)}>
+                        Admin
+                    </NavLink>
+                }
 
                 <div className="profile-container-mobile">
                     <img
@@ -71,7 +77,7 @@ const Header = () =>
                     />
                     {showProfileMenu && (
                         <div className="profile-menu">
-                            <button className="logout-btn">Logout</button>
+                            <button className="logout-btn" onClick={logout}>Logout</button>
                         </div>
                     )}
                 </div>

@@ -3,11 +3,21 @@ import { FaMapMarkerAlt, FaRegCalendarAlt } from 'react-icons/fa';
 
 const locations = ["New York", "Sydney", "Melbourne", "Sharjah"];
 
-const SearchSection = () =>
+interface SearchSectionProps
+{
+    onSearch: (filters: { from: string; to: string; date: string }) => void;
+}
+
+const SearchSection: React.FC<SearchSectionProps> = ({ onSearch }) =>
 {
     const [from, setFrom] = useState('');
     const [to, setTo] = useState('');
     const [date, setDate] = useState('');
+
+    const handleSearch = () =>
+    {
+        onSearch({ from, to, date });
+    };
 
     return (
         <section className="search-section">
@@ -45,16 +55,18 @@ const SearchSection = () =>
                     <label className="search-label">Date</label>
                     <div className="search-input-wrapper">
                         <input
+                            id='date'
                             type="date"
                             value={date}
                             onChange={(e) => setDate(e.target.value)}
                             className="search-input"
+                            style={{ zIndex: 0 }}
                         />
                         <FaRegCalendarAlt className="search-icon" />
                     </div>
                 </div>
 
-                <button className="search-button">Search Trips</button>
+                <button className="search-button" onClick={handleSearch}>Search Trips</button>
             </div>
         </section>
     );

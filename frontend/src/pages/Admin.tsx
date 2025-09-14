@@ -1,13 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Table, Button, Badge, Pagination } from 'react-bootstrap';
 import { BsQrCode } from 'react-icons/bs';
-import { FaKey, FaUsers, FaClock, FaEdit, FaTrash, FaCheckCircle, FaRegCircle } from 'react-icons/fa';
-
-const tripsData = [
-    { id: 'T001', route: 'London to Paris', departure: '06:00 AM', arrival: '04:00 PM', price: 70, seats: 50 },
-    { id: 'T002', route: 'Berlin to Munich', departure: '08:30 AM', arrival: '03:00 PM', price: 120, seats: 50 },
-    { id: 'T003', route: 'Rome to Florence', departure: '10:00 AM', arrival: '01:00 PM', price: 45, seats: 60 }
-];
+import { FaClock, FaEdit, FaTrash, FaCheckCircle, FaRegCircle } from 'react-icons/fa';
+import AddTripModal from '../components/trip/AddTripModal';
+import { createNewTrip, getAllTrips } from '../api/trips';
+import { useToast } from '../hooks/useToast';
+import moment from 'moment';
+import { getAllBookings } from '../api/booking';
 
 const bookingsData = [
     { id: 'B1001', user: 'Alice Smith', route: 'London to Paris', date: '2024-07-26', seats: 'A1, A2', status: 'Confirmed', qr: true },
@@ -17,6 +16,8 @@ const bookingsData = [
 
 const Admin = () =>
 {
+    const toast = useToast();
+    const [isLoading, setLoading] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 2;
 
@@ -26,6 +27,44 @@ const Admin = () =>
 
     const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
+    const [showModal, setShowModal] = useState(false);
+
+    const handleSubmit = (data: object) =>
+    {
+        createNewTrip(data).then((res) =>
+        {
+            toast.success('Success', 'Trip created successfully.');
+            setLoading(true);
+        }).catch((err) =>
+        {
+            toast.error('Error', 'Something went wrong while creating trip!.');
+            console.error('Error creating trip:', err);
+        });
+        setShowModal(false);
+    };
+
+    const [trips, setTrips] = useState<any>();
+    const [bookings, setBookings] = useState<any>();
+
+    useEffect(() =>
+    {
+        getAllTrips({}).then((data) =>
+        {
+            setTrips(data.data);
+            console.log('Fetched trips:', data.data);
+        }).catch((err) =>
+        {
+            console.error('Error fetching trips:', err);
+        }).finally(() => setLoading(false));
+
+        getAllBookings().then((data) =>
+        {
+            setBookings(data.data);
+        }).catch((err) =>
+        {
+            console.error('Error fetching bookings:', err);
+        }).finally(() => setLoading(false));
+    }, [isLoading]);
     return (
         <Container className="mt-4">
             <h4 className="mb-4 fw-500">Admin Dashboard</h4>
@@ -52,7 +91,7 @@ const Admin = () =>
 
                             </div>
                             <div>
-                                <h4 className="fw-bold mb-0">48</h4>
+                                <h4 className="fw-bold mb-0">{trips?.totalTrips ?? 0}</h4>
                                 <small className="text-muted">Total Trips</small>
                             </div>
                         </Card.Body>
@@ -79,7 +118,7 @@ const Admin = () =>
 
                             </div>
                             <div>
-                                <h4 className="fw-bold mb-0">325</h4>
+                                <h4 className="fw-bold mb-0">{bookings?.totalBookings ?? 0}</h4>
                                 <small className="text-muted">Total Bookings</small>
                             </div>
                         </Card.Body>
@@ -108,7 +147,7 @@ const Admin = () =>
                 <div className="col-md-6">
                     <div className="d-flex justify-content-end mb-2">
                         <Button variant="primary" className="me-2">All Trips</Button>
-                        <Button variant="outline-primary">+ Add New Trip</Button>
+                        <Button variant="outline-primary" onClick={() => setShowModal(true)}>+ Add New Trip</Button>
                     </div>
                 </div>
             </div>
@@ -126,14 +165,14 @@ const Admin = () =>
                     </tr>
                 </thead>
                 <tbody>
-                    {tripsData.map((trip) => (
-                        <tr key={trip.id}>
-                            <td>{trip.id}</td>
-                            <td>{trip.route}</td>
-                            <td>{trip.departure}</td>
-                            <td>{trip.arrival}</td>
-                            <td>${trip.price.toFixed(2)}</td>
-                            <td>{trip.seats}</td>
+                    {trips?.trips.map((trip: any, idx: number) => (
+                        <tr key={idx}>
+                            <td>{idx + 1}</td>
+                            <td>{trip?.from + " to " + trip?.to}</td>
+                            <td>{moment(trip?.departureTime, 'HH:mm').format('hh:mm A')}</td>
+                            <td>{moment(trip?.arrivalTime, 'HH:mm').format('hh:mm A')}</td>
+                            <td>${trip?.price.toFixed(2)}</td>
+                            <td>{trip?.totalSeats}</td>
                             <td>
                                 <FaEdit className="text-primary me-3 cursor-pointer" />
                                 <FaTrash className="text-danger cursor-pointer" />
@@ -159,7 +198,7 @@ const Admin = () =>
             <Table bordered responsive>
                 <thead>
                     <tr>
-                        <th>Booking ID</th>
+                        <th>SR</th>
                         <th>User</th>
                         <th>Trip Route</th>
                         <th>Date</th>
@@ -170,15 +209,15 @@ const Admin = () =>
                     </tr>
                 </thead>
                 <tbody>
-                    {currentBookings.map((booking) => (
-                        <tr key={booking.id}>
-                            <td>{booking.id}</td>
-                            <td>{booking.user}</td>
-                            <td>{booking.route}</td>
-                            <td>{booking.date}</td>
+                    {bookings?.bookings.map((booking: any, idx: number) => (
+                        <tr key={idx}>
+                            <td>{idx + 1}</td>
+                            <td>{booking?.userDetails?.name}</td>
+                            <td>{booking.tripDetails?.from + " to " + booking.tripDetails?.to}</td>
+                            <td>{new Date(booking.tripDetails.date).toLocaleDateString()}</td>
                             <td>{booking.seats}</td>
                             <td>
-                                <Badge bg={booking.status === 'Confirmed' ? 'success' : 'warning'} text="dark">
+                                <Badge bg={booking.status === 'confirmed' ? 'success' : 'warning'} text="dark">
                                     {booking.status}
                                 </Badge>
                             </td>
@@ -205,6 +244,12 @@ const Admin = () =>
                     </Pagination.Item>
                 ))}
             </Pagination>
+
+            <AddTripModal
+                show={showModal}
+                handleClose={() => setShowModal(false)}
+                handleSubmit={handleSubmit}
+            />
         </Container>
     );
 };

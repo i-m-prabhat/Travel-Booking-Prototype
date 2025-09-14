@@ -9,6 +9,7 @@ export interface IPayment extends Document
     method: "card" | "upi" | "netbanking";
     transactionId?: string;
     createdAt: Date;
+    userData?: any;
 }
 
 export interface PaymentModel<T extends Document> extends mongoose.Model<T>
@@ -38,6 +39,10 @@ const paymentSchema = new Schema<IPayment>(
             required: true,
         },
         transactionId: { type: String },
+        userData: {
+            type: mongoose.Schema.Types.Mixed,
+            default: {}
+        }
     },
     { timestamps: true }
 );

@@ -8,7 +8,7 @@ import { RequestWithUser } from "../types/requestWithUser";
 
 export const initiatePayment = asyncHandler(async (req: RequestWithUser, res: Response) =>
 {
-    const { bookingId, method } = req.body;
+    const { bookingId, method, userData } = req.body;
     if (!req.user) throw new ApiError(401, "Unauthorized");
 
     const booking = await Booking.findById(bookingId);
@@ -21,6 +21,7 @@ export const initiatePayment = asyncHandler(async (req: RequestWithUser, res: Re
         amount: booking.totalPrice,
         method,
         status: "pending",
+        userData
     });
 
     return res

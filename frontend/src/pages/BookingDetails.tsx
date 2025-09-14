@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { Container, Row, Col, Button, Card, Table, Badge } from 'react-bootstrap';
-import { FaStar, FaClock, FaUsers, FaCalendarAlt } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { useNavigate, useParams } from 'react-router-dom';
+import { getTripsById } from '../api/trips';
+import moment from 'moment';
+import { createNewBooking } from '../api/booking';
+import { useToast } from '../hooks/useToast';
 
 const seatLayout = [
     ['A1', 'A2', 'A3', 'A4', 'A5', 'A6'],
@@ -16,6 +19,9 @@ const bookedSeats = ['A2', 'B3', 'B5', 'C2', 'C6', 'D1', 'D3', 'D6', 'E1', 'E2',
 
 const BookingDetails: React.FC = () =>
 {
+    const { id } = useParams();
+    const toast = useToast();
+    const [tripDetails, setTripDetails] = useState<any>(null);
     const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
     const navigate = useNavigate();
     const toggleSeat = (seat: string) =>
@@ -28,6 +34,23 @@ const BookingDetails: React.FC = () =>
                 : [...prev, seat]
         );
     };
+
+
+    useEffect(() =>
+    {
+        getTripsById(id).then((data) => setTripDetails(data.data)).catch((err) => console.error(err));
+    }, [id]);
+
+    const handlebooking = () =>
+    {
+        createNewBooking({ trip: id, seats: selectedSeats.length }).then((res) =>
+        {
+            navigate(`/payment/${res.data._id}`, { state: { tripDetails, selectedSeats } });
+        }).catch(() =>
+        {
+            toast.error("Error", "Booking failed");
+        });
+    }
 
     return (
         <Container className="my-4">
@@ -43,17 +66,17 @@ const BookingDetails: React.FC = () =>
                         <Col xs={6}>
                             <h6 className="fw-bold">Trip Details</h6>
                             <p className="mb-0 text-muted small">From</p>
-                            <p>New York (NYC)</p>
+                            <p>{tripDetails?.from}</p>
                             <p className="mb-0 text-muted small">Date</p>
-                            <p>October 26, 2024</p>
+                            <p>{moment(tripDetails?.date).calendar()}</p>
                         </Col>
                         <Col xs={6} className="text-end">
                             <p className="mb-0 text-muted small">To</p>
-                            <p>Boston (BOS)</p>
+                            <p>{tripDetails?.to}</p>
                             <p className="mb-0 text-muted small">Time</p>
-                            <p>09:00 AM</p>
+                            <p>{moment(tripDetails?.departureTime, 'HH:mm').format('hh:mm A')}</p>
                             <p className="mb-0 text-muted small">Fare per seat</p>
-                            <h5 className="text-primary fw-bold">$48.00</h5>
+                            <h5 className="text-primary fw-bold">${tripDetails?.price}</h5>
                         </Col>
                     </Row>
                 </Card.Body>
@@ -108,7 +131,7 @@ const BookingDetails: React.FC = () =>
                 </Card.Body>
             </Card>
             <div className="text-center mb-5">
-                <Button variant="primary" size="lg" onClick={() => navigate("/payment/:id")}>Confirm Booking</Button>
+                <Button variant="primary" size="lg" onClick={handlebooking}>Confirm Booking</Button>
             </div>
         </Container>
     );

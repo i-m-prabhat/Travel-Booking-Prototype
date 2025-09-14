@@ -5,6 +5,7 @@ import { asyncHandler } from "../utils/asyncHandler";
 import { ApiError } from "../utils/ApiError";
 import { ApiResponse } from "../utils/ApiResponse";
 import { RequestWithUser } from "../types/requestWithUser";
+import mongoose from "mongoose";
 
 
 export const createBooking = asyncHandler(async (req: RequestWithUser, res: Response) =>
@@ -68,7 +69,49 @@ export const getMyBookings = asyncHandler(async (req: RequestWithUser, res: Resp
 {
     if (!req.user) throw new ApiError(401, "Unauthorized");
 
-    const bookings = await Booking.find({ user: req.user.id }).populate("trip");
+    const bookings = await Booking.aggregate([
+        { $match: { user: new mongoose.Types.ObjectId(req.user.id) } },
+        { $sort: { createdAt: -1 } }, {
+            '$lookup': {
+                'from': 'trips',
+                'localField': 'trip',
+                'foreignField': '_id',
+                'as': 'tripDetails'
+            }
+        }, {
+            '$unwind': '$tripDetails'
+        }, {
+            '$lookup': {
+                'from': 'users',
+                'localField': 'user',
+                'foreignField': '_id',
+                'as': 'userDetails'
+            }
+        }, {
+            '$unwind': '$userDetails'
+        }, {
+            '$project': {
+                '_id': 1,
+                'seats': 1,
+                'status': 1,
+                'totalPrice': 1,
+                'createdAt': 1,
+                'updatedAt': 1,
+                'tripDetails._id': 1,
+                'tripDetails.from': 1,
+                'tripDetails.to': 1,
+                'tripDetails.date': 1,
+                'tripDetails.departureTime': 1,
+                'tripDetails.arrivalTime': 1,
+                'tripDetails.price': 1,
+                'tripDetails.totalSeats': 1,
+                'tripDetails.availableSeats': 1,
+                'userDetails._id': 1,
+                'userDetails.name': 1,
+                'userDetails.email': 1,
+                'userDetails.role': 1
+            }
+        }]);
 
     return res
         .status(200)
@@ -83,7 +126,47 @@ export const getAllBookings = asyncHandler(async (req: RequestWithUser, res: Res
     const match: any = {};
     if (status) match.status = status;
 
-    const aggregate = Booking.aggregate([{ $match: match }, { $sort: { createdAt: -1 } }]);
+    const aggregate = Booking.aggregate([{ $match: match }, { $sort: { createdAt: -1 } }, {
+        '$lookup': {
+            'from': 'trips',
+            'localField': 'trip',
+            'foreignField': '_id',
+            'as': 'tripDetails'
+        }
+    }, {
+        '$unwind': '$tripDetails'
+    }, {
+        '$lookup': {
+            'from': 'users',
+            'localField': 'user',
+            'foreignField': '_id',
+            'as': 'userDetails'
+        }
+    }, {
+        '$unwind': '$userDetails'
+    }, {
+        '$project': {
+            '_id': 1,
+            'seats': 1,
+            'status': 1,
+            'totalPrice': 1,
+            'createdAt': 1,
+            'updatedAt': 1,
+            'tripDetails._id': 1,
+            'tripDetails.from': 1,
+            'tripDetails.to': 1,
+            'tripDetails.date': 1,
+            'tripDetails.departureTime': 1,
+            'tripDetails.arrivalTime': 1,
+            'tripDetails.price': 1,
+            'tripDetails.totalSeats': 1,
+            'tripDetails.availableSeats': 1,
+            'userDetails._id': 1,
+            'userDetails.name': 1,
+            'userDetails.email': 1,
+            'userDetails.role': 1
+        }
+    }]);
 
     const options = {
         page: parseInt(page as string, 10),
@@ -98,3 +181,61 @@ export const getAllBookings = asyncHandler(async (req: RequestWithUser, res: Res
         .json(new ApiResponse(200, result, "Bookings fetched successfully"));
 });
 
+
+
+export const getBookingById = asyncHandler(async (req: RequestWithUser, res: Response) =>
+{
+    const { id } = req.params;
+    if (!req.user) throw new ApiError(401, "Unauthorized");
+    const booking = await Booking.aggregate([
+        {
+            '$match': {
+                '_id': new mongoose.Types.ObjectId(id)
+            }
+        }, {
+            '$lookup': {
+                'from': 'trips',
+                'localField': 'trip',
+                'foreignField': '_id',
+                'as': 'tripDetails'
+            }
+        }, {
+            '$unwind': '$tripDetails'
+        }, {
+            '$lookup': {
+                'from': 'users',
+                'localField': 'user',
+                'foreignField': '_id',
+                'as': 'userDetails'
+            }
+        }, {
+            '$unwind': '$userDetails'
+        }, {
+            '$project': {
+                '_id': 1,
+                'seats': 1,
+                'status': 1,
+                'totalPrice': 1,
+                'createdAt': 1,
+                'updatedAt': 1,
+                'tripDetails._id': 1,
+                'tripDetails.from': 1,
+                'tripDetails.to': 1,
+                'tripDetails.date': 1,
+                'tripDetails.departureTime': 1,
+                'tripDetails.arrivalTime': 1,
+                'tripDetails.price': 1,
+                'tripDetails.totalSeats': 1,
+                'tripDetails.availableSeats': 1,
+                'userDetails._id': 1,
+                'userDetails.name': 1,
+                'userDetails.email': 1,
+                'userDetails.role': 1
+            }
+        }
+    ]);
+    if (!booking.length) throw new ApiError(404, "Booking not found");
+    return res
+        .status(200)
+        .json(new ApiResponse(200, booking[0], "Booking fetched successfully"));
+});

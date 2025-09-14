@@ -9,9 +9,10 @@ const TripsSection = ({ trips }: any) =>
             <p>Choose from our carefully selected destinations and enjoy a comfortable journey.</p>
 
             <div className="tripx-grid">
-                {trips.map((trip: any) => (
-                    <TripCard key={trip.id} trip={trip} />
-                ))}
+
+                {trips.length > 0 ? trips.map((trip: any, idx: number) => (
+                    <TripCard key={idx} trip={trip} />
+                )) : <p>No trips available</p>}
             </div>
         </section>
     );
