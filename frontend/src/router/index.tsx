@@ -1,5 +1,5 @@
 import AppLayout from "../layouts/AppLayout";
-import { Home, MyBooking } from "../pages";
+import { Admin, Home, MyBooking, Profile, ProfileDetails } from "../pages";
 
 export const indexRouter = [
     {
@@ -11,8 +11,20 @@ export const indexRouter = [
                 element: <Home />,
             },
             {
-                path: "my-booking",
+                path: "bookings",
                 element: <MyBooking />,
+            },
+            {
+                path: "profile",
+                element: <Profile />,
+            },
+            {
+                path: "profile/:id",
+                element: <ProfileDetails />,
+            },
+            {
+                path: "admin",
+                element: <Admin />,
             },
         ],
     },

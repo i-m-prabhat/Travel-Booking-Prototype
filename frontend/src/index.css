@@ -257,3 +257,245 @@ body {
 }
 
 /* Footer styling end */
+
+
+/* home page  */
+.home {
+  /* padding: 2rem; */
+  /* font-family: sans-serif; */
+  background: #f4f6fc;
+}
+
+.search-section {
+  background: #e7eeff;
+  padding: 3rem 1rem;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.search-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.search-subtitle {
+  color: #555;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+}
+
+.search-container {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  max-width: fit-content;
+}
+
+/* Input Group */
+.search-input-group {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.search-label {
+  font-size: 0.875rem;
+  color: #333;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  text-align: left;
+}
+
+/* Input Wrapper */
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  padding: 0.75rem 2.5rem 0.75rem 1rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  appearance: none;
+  width: 200px;
+  color: #333;
+}
+
+.search-input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  cursor: pointer;
+}
+
+.search-icon {
+  position: absolute;
+  right: 0.75rem;
+  pointer-events: none;
+  font-size: 1rem;
+  color: #888;
+}
+
+/* Button */
+.search-button {
+  padding: 0.75rem 1.5rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  height: 45px;
+}
+
+.search-button:hover {
+  background-color: #1e4fcc;
+}
+
+
+
+.tripx-section {
+  padding: 3rem 1rem;
+  text-align: center;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.tripx-section h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.tripx-section p {
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.tripx-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.tripx-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+}
+
+.tripx-card:hover {
+  transform: translateY(-5px);
+}
+
+.tripx-image {
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+}
+
+.tripx-tag,
+.tripx-discount {
+  position: absolute;
+  top: 10px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  color: white;
+  border-radius: 4px;
+}
+
+.tripx-tag {
+  left: 10px;
+  background-color: #f43f5e;
+  /* red */
+  font-weight: 600;
+}
+
+.tripx-discount {
+  right: 10px;
+  background-color: #22c55e;
+  /* green */
+  font-weight: 600;
+}
+
+.tripx-details {
+  padding: 1rem;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  /* height: 100%; */
+}
+
+.tripx-rating {
+  font-size: 0.85rem;
+  color: #dfbe04;
+  margin-bottom: 0.25rem;
+}
+
+.tripx-details h3 {
+  margin: 0.25rem 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.tripx-details p {
+  margin: 0.25rem 0;
+  color: #444;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+.tripx-price-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.75rem 0;
+}
+
+.tripx-price {
+  font-weight: bold;
+  font-size: 1.25rem;
+}
+
+.tripx-original-price {
+  text-decoration: line-through;
+  color: #999;
+  font-size: 0.95rem;
+}
+
+.tripx-book-btn {
+  margin-top: auto;
+  width: fit-content;
+  padding: 0.65rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: background 0.2s;
+}
+
+.tripx-book-btn:hover {
+  background-color: #1d4ed8;
+}

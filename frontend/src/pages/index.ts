@@ -4,4 +4,5 @@ export { default as Register } from './Register';
 export { default as Admin } from './Admin';
 export { default as MyBooking } from './MyBooking';
 export { default as Profile } from './Profile';
+export { default as ProfileDetails } from './ProfileDetails';
 
