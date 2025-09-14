@@ -1,0 +1,147 @@
+[{
+  "_id": {
+    "$oid": "68c6ff81bd8f19f56340d614"
+  },
+  "user": {
+    "$oid": "68c48713142dd65ed6db3d93"
+  },
+  "trip": {
+    "$oid": "68c6e77bbd8f19f56340d5e1"
+  },
+  "seats": 2,
+  "status": "pending",
+  "totalPrice": 310,
+  "createdAt": {
+    "$date": "2025-09-14T17:46:41.464Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-14T17:46:41.464Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c70340bd8f19f56340d61c"
+  },
+  "user": {
+    "$oid": "68c48713142dd65ed6db3d93"
+  },
+  "trip": {
+    "$oid": "68c6e77bbd8f19f56340d5e1"
+  },
+  "seats": 1,
+  "status": "pending",
+  "totalPrice": 155,
+  "createdAt": {
+    "$date": "2025-09-14T18:02:40.339Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-14T18:02:40.339Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c7038bbd8f19f56340d622"
+  },
+  "user": {
+    "$oid": "68c48713142dd65ed6db3d93"
+  },
+  "trip": {
+    "$oid": "68c6e77bbd8f19f56340d5e1"
+  },
+  "seats": 1,
+  "status": "pending",
+  "totalPrice": 155,
+  "createdAt": {
+    "$date": "2025-09-14T18:03:55.173Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-14T18:03:55.173Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c70e36c5fdf27cb5909cbf"
+  },
+  "user": {
+    "$oid": "68c48713142dd65ed6db3d93"
+  },
+  "trip": {
+    "$oid": "68c506a60a8e15ebabbc2be4"
+  },
+  "seats": 2,
+  "status": "pending",
+  "totalPrice": 1338,
+  "createdAt": {
+    "$date": "2025-09-14T18:49:26.161Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-14T18:49:26.161Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c70fabc5fdf27cb5909cc7"
+  },
+  "user": {
+    "$oid": "68c48713142dd65ed6db3d93"
+  },
+  "trip": {
+    "$oid": "68c6e77bbd8f19f56340d5e1"
+  },
+  "seats": 1,
+  "status": "confirmed",
+  "totalPrice": 155,
+  "createdAt": {
+    "$date": "2025-09-14T18:55:39.010Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-14T19:04:43.834Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c7120dc5fdf27cb5909cde"
+  },
+  "user": {
+    "$oid": "68c48713142dd65ed6db3d93"
+  },
+  "trip": {
+    "$oid": "68c6e77bbd8f19f56340d5e1"
+  },
+  "seats": 1,
+  "status": "confirmed",
+  "totalPrice": 155,
+  "createdAt": {
+    "$date": "2025-09-14T19:05:49.980Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-14T19:06:50.347Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c725efda7e17ffad5d324f"
+  },
+  "user": {
+    "$oid": "68c725cada7e17ffad5d3246"
+  },
+  "trip": {
+    "$oid": "68c7255eda7e17ffad5d323c"
+  },
+  "seats": 2,
+  "status": "confirmed",
+  "totalPrice": 312,
+  "createdAt": {
+    "$date": "2025-09-14T20:30:39.403Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-14T20:31:23.486Z"
+  },
+  "__v": 0
+}]

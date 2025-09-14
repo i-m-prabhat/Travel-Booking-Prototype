@@ -1,0 +1,117 @@
+[{
+  "_id": {
+    "$oid": "68c506a60a8e15ebabbc2be4"
+  },
+  "from": "Delhi",
+  "to": "Mumbai",
+  "date": {
+    "$date": "2025-10-27T00:00:00.000Z"
+  },
+  "departureTime": "06:00",
+  "arrivalTime": "10:05",
+  "price": 669,
+  "totalSeats": 100,
+  "availableSeats": 98,
+  "createdBy": "68c48713142dd65ed6db3d93",
+  "createdAt": {
+    "$date": "2025-09-13T05:52:38.423Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-14T18:49:26.171Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c506d70a8e15ebabbc2be6"
+  },
+  "from": "Delhi",
+  "to": "Mumbai",
+  "date": {
+    "$date": "2025-10-28T00:00:00.000Z"
+  },
+  "departureTime": "06:00",
+  "arrivalTime": "10:05",
+  "price": 869,
+  "totalSeats": 170,
+  "availableSeats": 170,
+  "createdBy": "68c48713142dd65ed6db3d93",
+  "createdAt": {
+    "$date": "2025-09-13T05:53:27.818Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T06:00:28.776Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c6e390bd8f19f56340d5da"
+  },
+  "from": "New York",
+  "to": "New York",
+  "date": {
+    "$date": "2025-09-14T00:00:00.000Z"
+  },
+  "departureTime": "09:17",
+  "arrivalTime": "21:17",
+  "price": 744,
+  "totalSeats": 144,
+  "availableSeats": 144,
+  "createdBy": "68c48713142dd65ed6db3d93",
+  "createdAt": {
+    "$date": "2025-09-14T15:47:28.731Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-14T15:47:28.731Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c6e77bbd8f19f56340d5e1"
+  },
+  "from": "Sydney",
+  "to": "New York",
+  "date": {
+    "$date": "2025-09-14T00:00:00.000Z"
+  },
+  "departureTime": "09:33",
+  "arrivalTime": "21:34",
+  "price": 155,
+  "totalSeats": 125,
+  "availableSeats": 119,
+  "createdBy": "68c48713142dd65ed6db3d93",
+  "createdAt": {
+    "$date": "2025-09-14T16:04:11.341Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-14T19:05:49.992Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c7255eda7e17ffad5d323c"
+  },
+  "from": "Melbourne",
+  "to": "Sharjah",
+  "date": {
+    "$date": "2025-09-25T00:00:00.000Z"
+  },
+  "departureTime": "16:00",
+  "arrivalTime": "10:00",
+  "price": 156,
+  "totalSeats": 100,
+  "availableSeats": 98,
+  "createdBy": {
+    "$oid": "68c48713142dd65ed6db3d93"
+  },
+  "createdAt": {
+    "$date": "2025-09-14T20:28:14.146Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-14T20:30:39.410Z"
+  },
+  "__v": 0
+}]

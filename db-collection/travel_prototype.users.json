@@ -1,0 +1,88 @@
+[{
+  "_id": {
+    "$oid": "68c48713142dd65ed6db3d93"
+  },
+  "name": "Admin",
+  "email": "admin@travel.com",
+  "password": "$2b$10$.Ytjty6YyqWAff00kDovUOA/d8BNH4poVuBtuipExroMtz9QKXGm.",
+  "role": "admin",
+  "profilePicture": "",
+  "mobileNumber": "",
+  "address": "",
+  "userDob": null,
+  "secondaryEmail": "",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-09-12T20:48:19.267Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-12T20:48:19.267Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c4f7180b7646411573315e"
+  },
+  "name": "Admin",
+  "email": "user@travel.com",
+  "password": "$2b$10$hMwGyogyARwTmCmHN8JPZ.tOrbMMZRM63wKAqy.0m4PKF5SMeUPE2",
+  "role": "user",
+  "profilePicture": "",
+  "mobileNumber": "",
+  "address": "",
+  "userDob": null,
+  "secondaryEmail": "",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-09-13T04:46:16.741Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T04:46:16.741Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c5d66472fb55a042b8100b"
+  },
+  "name": "Test User",
+  "email": "testuser@gmail.com",
+  "password": "$2b$10$AQQx32puvN5vGU1Uh1SQKOKxQZd4ePlWX0cuSfHJGkAuLCrf/L4tK",
+  "role": "user",
+  "profilePicture": "",
+  "mobileNumber": "",
+  "address": "",
+  "userDob": null,
+  "secondaryEmail": "",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-09-13T20:39:01.445Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-13T20:39:01.445Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "68c725cada7e17ffad5d3246"
+  },
+  "name": "Test User",
+  "email": "testuser1@gmail.com",
+  "password": "$2b$10$MobKegT5UT95cbneMAaNBenAAnTcAbobw.KIOQB/.KN7cEpZI9vnK",
+  "role": "user",
+  "profilePicture": "",
+  "mobileNumber": "",
+  "address": "",
+  "userDob": null,
+  "secondaryEmail": "",
+  "isDeleted": false,
+  "createdAt": {
+    "$date": "2025-09-14T20:30:02.163Z"
+  },
+  "updatedAt": {
+    "$date": "2025-09-14T20:30:02.163Z"
+  },
+  "__v": 0
+}]
